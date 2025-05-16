@@ -90,21 +90,21 @@ This application will not function correctly if these backend AI services are no
 
 Once prerequisites are met, external AI services are running, and dependencies are installed:
 
-1.  Navigate to the project's root directory (where `main_fastapi.py` is located).
+1.  Navigate to the project's root directory (where `main.py` is located).
 2.  Ensure your Python virtual environment is activated.
 3.  To run the application, use the following command in your terminal:
 
     ```bash
-    uvicorn main_fastapi:app --reload
+    uvicorn main:app --reload
     ```
 
-    * **`main_fastapi`**: Refers to your Python file `main_fastapi.py`.
+    * **`main`**: Refers to your Python file `main.py`.
     * **`app`**: Refers to the FastAPI instance you created in that file (e.g., `app = FastAPI()`).
     * **`--reload`**: This flag enables auto-reloading, which is very useful during development as the server will automatically restart when you make changes to your code. For production deployments, you would typically omit this flag.
 
 ## Accessing the Application
 
-By default, when you run Uvicorn with the command `uvicorn main_fastapi:app --reload` (without specifying a `--host` or `--port`), it binds to `127.0.0.1` (localhost) on port `8000`.
+By default, when you run Uvicorn with the command `uvicorn main:app --reload` (without specifying a `--host` or `--port`), it binds to `127.0.0.1` (localhost) on port `8000`.
 
 You can access the application by opening your web browser and navigating to:
 **`http://127.0.0.1:8000`**
@@ -114,6 +114,6 @@ You can access the application by opening your web browser and navigating to:
 If you want to make the server accessible from other devices on your network or run it on a different port, you can specify the `--host` and `--port` arguments:
 
 ```bash
-uvicorn main_fastapi:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 Using --host 0.0.0.0 will make the server listen on all available network interfaces. You would then access it via your machine's IP address (e.g., http://<your-local-ip-address>:8000).
