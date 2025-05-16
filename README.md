@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2b942cdd-cb7b-4ba6-bc1f-abc604a986b2)
+![image](https://github.com/user-attachments/assets/282f9893-9907-4266-9f3f-0faee14b3076)
 
 
 # Orpheus-Edge: Voice & Text AI Application
