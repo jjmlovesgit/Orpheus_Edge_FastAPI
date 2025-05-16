@@ -1,6 +1,5 @@
+![image](https://github.com/user-attachments/assets/2b942cdd-cb7b-4ba6-bc1f-abc604a986b2)
 
-uvicorn main_fastapi:app --reload
-http://127.0.0.1:8000
 
 # Orpheus-Edge: Voice & Text AI Application
 
