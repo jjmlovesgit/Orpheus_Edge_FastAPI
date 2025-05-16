@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice & Text AI App - Dark Mode</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mvp.css/1.6.0/mvp.min.css">
+    <style>
+        :root {
+            /* Define your custom dark mode color palette here */
+            --color-background: #1e1e1e;       /* Dark grey for the main page background */
+            --color-text: #e0e0e0;             /* Light grey for primary text */
+            --color-theme: #02423a;            /* Slightly lighter dark grey for surfaces like header/main */
+            --color-link: #07f1ca;             /* A bright, accessible blue for links */
+            --color-link-active: #015383;      /* A more vibrant blue for active/hovered links */
+            --color-secondary: #4a4a4a;        /* Medium dark grey for borders, less prominent elements */
+            --color-secondary-text: #b0b0b0;   /* Muted grey for secondary text */
+
+            /* Chat specific variables */
+            --color-theme: #171717;            /* Slightly lighter dark grey for surfaces like header/main */
+            --color-background-alt: #;   /* Background for the chat history container */
+            --color-accent-bg:#02423a;       /* Darker, rich blue for user messages */
+            --color-user-message-text: #ffffff;/* Text color for user messages (ensure contrast) */
+            --color-bg-alt: #012429;           /* Background for assistant messages */
+            --color-assistant-message-text: #e0e0e0; /* Text color for assistant messages */
+
+
+            /* Input and Form Element variables */
+            --input-bg: #333333;               /* Background for text inputs, textareas, selects */
+            --input-border: #555555;           /* Border color for inputs */
+            --input-text: var(--color-text);   /* Text color inside inputs */
+            
+            /* Button variables */
+            --button-primary-bg: var(--color-link);         /* Primary button background */
+            --button-primary-text: #000f9a;                 /* Primary button text (white for good contrast on blue) */
+            --button-primary-hover-bg: var(--color-link-active);
+            --button-disabled-bg: #555555;
+            --button-disabled-text: #888888;
+
+            /* Error colors */
+            --color-error: #e57373;            /* Lighter red for error text in dark mode */
+            --color-error-bg: #4e3434;         /* Dark red background for error emphasis elements */
+            --color-error-text-on-bg: #ffcdd2; /* For text on the --color-error-bg */
+        }
+
+        body { 
+            font-family: sans-serif; 
+            line-height: 1.6; 
+            margin: 20px; 
+            background-color: var(--color-background); 
+            color: var(--color-text); 
+        }
+        header, main { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 2px; 
+            background-color: var(--color-theme); 
+            border-radius: 8px; 
+            box-shadow: 0 0 15px 0px rgba(100, 181, 246, 0.4); /* x-offset y-offset blur-radius spread-radius color */
+        }
+        h1 { 
+            text-align: center; 
+            color: #07f1ca; 
+            font-family: 'VT323', monospace; /* Retro pixel terminal font */
+            text-shadow: 0 0 5px rgba(60, 0, 255, 0.448); 
+            font-size: 2.5rem; /* Pixel fonts often look better a bit larger */
+    
+        }
+        form div, details > div { 
+            margin-bottom: 15px; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold; 
+            color: var(--color-link); /* Or var(--color-secondary-text) for less emphasis */
+        }
+        
+        /* Updated Input Styling for Dark Mode */
+        input[type="text"], textarea, select, input[type="number"] { 
+            width: calc(100% - 16px);
+            padding: 8px; 
+            box-sizing: border-box; 
+            background-color: var(--input-bg); 
+            color: var(--input-text); 
+            border: 1px solid var(--input-border); 
+            border-radius: 4px; 
+        }
+        select {
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right .7em top 50%;
+            background-size: .65em auto;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        input[type="range"] { 
+            padding: 0; 
+            vertical-align: middle; 
+        }
+        input[type="range"] + span { 
+            display: inline-block; 
+            min-width: 3em; 
+            text-align: right; 
+            vertical-align: middle; 
+            margin-left: 5px;
+            color: var(--color-secondary-text);
+        }
+        details { 
+            margin-bottom: 15px; 
+            border: 1px solid var(--color-secondary); 
+            border-radius: 4px; 
+            padding: 10px; 
+            background-color: var(--input-bg); 
+        }
+        summary { 
+            font-weight: bold; 
+            cursor: pointer; 
+            color: var(--color-link); 
+        }
+        details > div { 
+            margin-top: 10px; 
+            padding-top: 10px; 
+            border-top: 1px solid var(--color-secondary); 
+        }
+        
+        button { 
+            display: block; 
+            width: 100%; 
+            padding: 10px; 
+            background-color: var(--button-primary-bg); 
+            color: var(--button-primary-text); 
+            border: none; 
+            cursor: pointer; 
+            font-size: 1em; 
+            border-radius: 4px; 
+            transition: background-color 0.2s ease; 
+            margin-top: 10px; 
+        }
+        button:hover:not(:disabled) { 
+            background-color: var(--button-primary-hover-bg); 
+        }
+        button:disabled { 
+            background-color: var(--button-disabled-bg); 
+            color: var(--button-disabled-text);
+            cursor: not-allowed; 
+        }
+        audio { display: block; width: 100%; margin-top: 5px; }
+        footer { 
+            text-align: center; 
+            margin-top: -40px; 
+            font-size: 0.9em; 
+            color: var(--color-secondary-text); 
+        }
+        
+        #chat-history-display { 
+            height: 400px; 
+            border: 5x solid var(--color-secondary); 
+            padding: 10px; 
+            margin-bottom: 20px; 
+            overflow-y: auto; 
+            background-color: var(--color-background-alt); 
+            border-radius: 4px; 
+            box-shadow: 0 0 15px 0px rgba(100, 181, 246, 0.2); 
+        }
+        .chat-message { 
+            margin-bottom: 10px; 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            word-wrap: break-word; 
+        }
+        .user-message { 
+            background-color: var(--color-accent-bg); 
+            color: var(--color-user-message-text); 
+            text-align: right; 
+            margin-left: auto; 
+            max-width: 80%; 
+        }
+        .assistant-message { 
+            background-color: var(--color-bg-alt); 
+            color: var(--color-assistant-message-text); 
+            text-align: left; 
+            margin-right: auto; 
+            max-width: 80%; 
+        }
+        .chat-message strong { 
+            display: block; 
+            margin-bottom: 4px; 
+            color: var(--color-link); 
+            font-size: 0.9em;
+        }
+        .streaming-llm-content { white-space: pre-wrap; }
+        
+        .input-actions { 
+            display: flex; 
+            gap: 10px; 
+            align-items: flex-start; 
+            margin-bottom: 15px;
+        }
+        .input-actions textarea { 
+            flex-grow: 1; 
+            margin: 0; 
+        }
+        .input-actions button#record-button { 
+            width: auto; 
+            flex-shrink: 0; 
+            padding: 8px 12px; 
+            margin-top: 0; 
+            font-size: 1.2em;
+            background-color: var(--input-bg); 
+            color: var(--color-link);   
+            border: 1px solid var(--input-border);
+        }
+        .input-actions button#record-button:hover:not(:disabled) {
+            background-color: var(--color-theme); 
+            border-color: var(--color-link);
+        }
+        #record-button.recording { 
+            background-color: var(--color-error); 
+            color: #ffffff; 
+            border-color: var(--color-error);
+        }
+        #record-status { 
+            font-style: italic; 
+            margin-left: 5px; 
+            color: var(--color-secondary-text); 
+            display: inline-block; 
+            min-width: 100px; 
+            line-height: 38px; 
+        }
+        input[type="number"]#llm_max_tokens_input { 
+            width: 100px; 
+        }
+
+        /* --- NEW Styles for two-column form row --- */
+        .form-row-columns {
+            display: flex;
+            gap: 20px; /* Adjust the space between the two columns */
+            margin-bottom: 15px; /* Maintain bottom margin for the row itself */
+        }
+
+        .form-row-columns > div {
+            flex: 1; /* Each child div (column) will take up equal space */
+            margin-bottom: 0; /* Remove individual bottom margin from columns as the row has it */
+        }
+
+        .form-row-columns select {
+            width: 100%; /* Make selects take full width of their column */
+             /* The calc(100% - 16px) is overridden for these specific selects */
+        }
+        /* --- END NEW Styles for two-column form row --- */
+
+    </style>
+</head>
+<body>
+    <header><h1>Story craft with Orpheus-TTS</h1></header>
+    <main>
+        <label for="chat-history-display"> Conversation:</label>
+        <div id="chat-history-display">
+        </div>
+
+        <form id="app-form">
+            <div class="form-row-columns">
+                <div> <label for="mode_select">Mode:</label>
+                    <select id="mode_select">
+                        <option value="llm_tts" selected>LLM + TTS</option>
+                        <option value="llm_only">LLM Only</option>
+                        <option value="tts_only">TTS Only</option>
+                    </select>
+                </div>
+                
+                <div> <label for="tts_voice_dd">TTS Voice:</label>
+                    <select id="tts_voice_dd">
+                        </select>
+                </div>
+            </div>
+            
+            <label for="text_input">Your Message:</label>
+            <div class="input-actions">
+                <textarea id="text_input" rows="3" placeholder="Enter text or use microphone..."></textarea>
+                <button type="button" id="record-button" title="Record Audio">🎤</button>
+                <span id="record-status"></span>
+            </div>
+
+            <button type="submit" id="generate-button">Generate Button (Note: The "Space Bar" is "Push to Talk")</button>
+
+            <details>
+                <summary>LLM Parameters</summary>
+                <div>
+                    <div><label for="llm_temp_slider">LLM Temperature:</label><input type="range" id="llm_temp_slider" min="0.0" max="2.0" step="0.01" value="0.7"><span id="llm_temp_value">0.70</span></div>
+                    <div><label for="llm_top_p_slider">LLM Top P:</label><input type="range" id="llm_top_p_slider" min="0.0" max="1.0" step="0.01" value="0.9"><span id="llm_top_p_value">0.90</span></div>
+                    <div><label for="llm_max_tokens_input">LLM Max Tokens (-1 default):</label><input type="number" id="llm_max_tokens_input" value="-1" step="1"></div>
+                    <div><label for="llm_rep_penalty_slider">LLM Repetition Penalty:</label><input type="range" id="llm_rep_penalty_slider" min="1.0" max="2.0" step="0.01" value="1.1"><span id="llm_rep_penalty_value">1.10</span></div>
+                    <div><label for="llm_top_k_slider">LLM Top K (0 default):</label><input type="range" id="llm_top_k_slider" min="0" max="100" step="1" value="45"><span id="llm_top_k_value">45</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>TTS Parameters</summary>
+                <div>
+                    <div><label for="tts_temp_slider">TTS Temperature:</label><input type="range" id="tts_temp_slider" min="0.1" max="2.0" step="0.05" value="2.0"><span id="tts_temp_value">2.00</span></div>
+                    <div><label for="tts_top_p_slider">TTS Top P:</label><input type="range" id="tts_top_p_slider" min="0.1" max="1.0" step="0.05" value="0.9"><span id="tts_top_p_value">0.90</span></div>
+                    <div><label for="tts_rep_penalty_slider">TTS Repetition Penalty (Fixed):</label><input type="range" id="tts_rep_penalty_slider" min="1.1" max="1.1" step="0.01" value="1.1" disabled><span id="tts_rep_penalty_value">1.10</span></div>
+                    <div><label for="tts_buffer_groups_slider">TTS Initial Buffer (Groups):</label><input type="range" id="tts_buffer_groups_slider" min="1" max="100" step="1" value="5"><span id="tts_buffer_groups_value">5</span></div>
+                    <div><label for="tts_padding_ms_slider">TTS Padding (ms):</label><input type="range" id="tts_padding_ms_slider" min="0" max="500" step="1" value="0"><span id="tts_padding_ms_value">0</span></div>
+                    <div><label for="tts_batch_groups_slider">TTS Backend Batch (Groups):</label><input type="range" id="tts_batch_groups_slider" min="1" max="10" step="1" value="7"><span id="tts_batch_groups_value">7</span></div>
+                    <div><label for="client_buffer_duration_slider">Client Audio Buffer (sec):</label><input type="range" id="client_buffer_duration_slider" min="0.0" max="2.0" step="0.1" value="0.1"><span id="client_buffer_duration_value">0.10</span></div>
+                </div>
+            </details>
+            
+            </form>
+        <audio controls id="audio-player" style="display: none;"></audio> 
+    </main>
+    <footer><p>Powered by FastAPI, SNAC, Whisper, Orpheus, and LM Studio</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
