@@ -116,4 +116,6 @@ If you want to make the server accessible from other devices on your network or 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
+```
+
 Using --host 0.0.0.0 will make the server listen on all available network interfaces. You would then access it via your machine's IP address (e.g., http://<your-local-ip-address>:8000).
