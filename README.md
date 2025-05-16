@@ -15,6 +15,9 @@ A FastAPI-based web application that provides a user interface for interacting w
 * Push-to-talk functionality using the space bar.
 * Dark mode interface.
 
+* ![image](https://github.com/user-attachments/assets/6b3cb773-6552-42d1-ac57-a410b40095bc)
+
+
 ## Prerequisites
 
 * **Python:** Version 3.8 or higher is recommended.
