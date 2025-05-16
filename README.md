@@ -33,8 +33,8 @@ A FastAPI-based web application that provides a user interface for interacting w
 
 1.  **Clone the Repository:**
     ```bash
-    git clone <your-github-repository-url>
-    cd <repository-name>
+    git clone https://github.com/jjmlovesgit/Orpheus_Edge_FastAPI
+    cd Orpheus_Edge_FastAPI
     ```
 
 2.  **Create and Activate a Python Virtual Environment (Recommended):**
