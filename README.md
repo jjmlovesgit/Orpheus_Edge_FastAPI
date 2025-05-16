@@ -121,7 +121,14 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 Using --host 0.0.0.0 will make the server listen on all available network interfaces. You would then access it via your machine's IP address (e.g., http://<your-local-ip-address>:8000).
 
 # Model details:
+
 ## Orpheus TTS Settings
 ![image](https://github.com/user-attachments/assets/c0c54e7e-9b01-464b-9751-b5add023eb5f)
 ![image](https://github.com/user-attachments/assets/aa1fc9e7-2a39-4840-b90e-32b783882743)
+
+## LLM Settings
+![image](https://github.com/user-attachments/assets/a4847185-6280-42a2-adec-25b070f4ccc7)
+![image](https://github.com/user-attachments/assets/658cfbcb-ee42-4519-b391-a737bed48f23)
+
+
 
