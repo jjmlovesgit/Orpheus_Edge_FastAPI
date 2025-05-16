@@ -1,0 +1,1 @@
+Temp Audio Files will be created here in this direcoty for Speech to Text transcription with Whisper
