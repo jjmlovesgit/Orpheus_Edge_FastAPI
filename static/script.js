@@ -119,32 +119,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Chat History Management ---
     function renderChatHistory() {
         if (!chatHistoryDisplay) { console.warn("Chat history display element not found."); return null; }
-        chatHistoryDisplay.innerHTML = '';
-        let lastAssistantContentDiv = null;
+        chatHistoryDisplay.innerHTML = ''; // Clear previous messages
+        let lastAssistantContentDiv = null; // To update streaming text
 
         chatHistory.forEach(msg => {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('chat-message', msg.role === 'user' ? 'user-message' : 'assistant-message');
-            
+
+            // --- NEW: Create Avatar Image ---
+            const avatarImg = document.createElement('img');
+            avatarImg.classList.add('chat-avatar');
+            avatarImg.src = msg.role === 'user' ? '/static/user3.gif' : '/static/bot3.gif';
+            avatarImg.alt = msg.role === 'user' ? 'User avatar' : 'Assistant avatar';
+            // --- END NEW ---
+
+            // --- NEW: Create Message Content Wrapper ---
+            // This div will now hold the sender name and the message content, forming the "bubble"
+            const messageContentWrapper = document.createElement('div');
+            messageContentWrapper.classList.add('message-content-wrapper');
+            // --- END NEW ---
+
+            // Sender Name (You: or Assistant:)
             const strong = document.createElement('strong');
             strong.textContent = msg.role === 'user' ? 'You:' : 'Assistant:';
-            msgDiv.appendChild(strong);
-            
+            messageContentWrapper.appendChild(strong); // Append to the wrapper
+
+            // Message Content
             const contentDiv = document.createElement('div');
             if (msg.role === 'assistant' && msg.isStreaming) {
                 contentDiv.classList.add('streaming-llm-content');
             }
-            contentDiv.textContent = msg.content; 
-            msgDiv.appendChild(contentDiv);
-            
+            contentDiv.textContent = msg.content;
+            messageContentWrapper.appendChild(contentDiv); // Append to the wrapper
+
+            // --- NEW: Append avatar and content wrapper to msgDiv in correct order ---
+            if (msg.role === 'user') {
+                // For user: text wrapper first, then avatar (due to flex-direction: row-reverse CSS)
+                msgDiv.appendChild(messageContentWrapper);
+                msgDiv.appendChild(avatarImg);
+            } else {
+                // For assistant: avatar first, then text wrapper
+                msgDiv.appendChild(avatarImg);
+                msgDiv.appendChild(messageContentWrapper);
+            }
+            // --- END NEW ---
+
             chatHistoryDisplay.appendChild(msgDiv);
 
+            // If it's an assistant message, keep a reference to the contentDiv for streaming updates
             if (msg.role === 'assistant') {
-                lastAssistantContentDiv = contentDiv; // Keep track of the last one rendered
+                lastAssistantContentDiv = contentDiv;
             }
         });
+
+        // Scroll to the bottom of the chat
         chatHistoryDisplay.scrollTop = chatHistoryDisplay.scrollHeight;
-        return lastAssistantContentDiv; // Return for direct manipulation if needed
+        return lastAssistantContentDiv; // This reference is still to the actual text holding div
     }
 
     function addUserMessageToChat(text) {
@@ -336,8 +366,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const historyForAPI = chatHistory.slice(0, -2) // Exclude current user prompt and assistant placeholder
-                              .filter(msg => msg.content !== "...") 
-                              .map(msg => ({ role: msg.role, content: msg.content })); 
+                                 .filter(msg => msg.content !== "...") 
+                                 .map(msg => ({ role: msg.role, content: msg.content })); 
 
         const llmPayload = {
             prompt: promptText, 
@@ -392,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 const chunk = decoder.decode(value, { stream: true });
-                fullLLMResponse += chunk;    // Accumulate for TTS
+                fullLLMResponse += chunk;   // Accumulate for TTS
                 llmDisplayQueue.push(chunk); // Add to display queue
 
                 if (!firstLLMChunkReceived) {
@@ -594,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clientMinBufferDuration = parseFloat(document.getElementById('client_buffer_duration_slider').value);
     }
     initializeTabs();
-    renderChatHistory();
+    renderChatHistory(); // Initial render, possibly of an empty chat or loaded history
     if (recordButton) recordButton.innerHTML = SVG_MIC_ICON;
 
 }); // End of DOMContentLoaded
