@@ -1,7 +1,6 @@
 Youtube demo:  https://youtu.be/47YhYkwGd60
 
-![image](https://github.com/user-attachments/assets/dc45ee6a-c7bc-4d69-8460-13aaa37c34d6)
-
+![image](https://github.com/user-attachments/assets/eef7e1e2-aadd-46c5-a973-466fe1fbd31a)
 
 # Orpheus-Edge: Voice & Text AI Application
 
