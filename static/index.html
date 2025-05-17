@@ -10,29 +10,29 @@
             /* Define your custom dark mode color palette here */
             --color-background: #1e1e1e;       /* Dark grey for the main page background */
             --color-text: #e0e0e0;             /* Light grey for primary text */
-            --color-theme: #02423a;            /* Slightly lighter dark grey for surfaces like header/main */
+            --color-theme: #171717;            /* Background for surfaces like header/main */
             --color-link: #07f1ca;             /* A bright, accessible blue for links */
             --color-link-active: #015383;      /* A more vibrant blue for active/hovered links */
             --color-secondary: #4a4a4a;        /* Medium dark grey for borders, less prominent elements */
             --color-secondary-text: #07f1ca;   /* Muted grey for secondary text */
 
             /* Chat specific variables */
-            --color-theme: #171717;            /* Slightly lighter dark grey for surfaces like header/main */
-            --color-background-alt: #;   /* Background for the chat history container */
-            --color-accent-bg:#02423a;       /* Darker, rich blue for user messages */
+            /* --color-theme: #171717; -- This was a duplicate, removed */
+            --color-background-alt: #252525;   /* CORRECTED: Background for chat history and app-form */
+            --color-accent-bg:#012429;         /* Darker, rich blue for user messages */
             --color-user-message-text: #ffffff;/* Text color for user messages (ensure contrast) */
             --color-bg-alt: #012429;           /* Background for assistant messages */
             --color-assistant-message-text: #e0e0e0; /* Text color for assistant messages */
 
 
             /* Input and Form Element variables */
-            --input-bg: #333333;               /* Background for text inputs, textareas, selects */
+            --input-bg: #333333;               /* Background for text inputs, textareas, selects, and details/app-form */
             --input-border: #555555;           /* Border color for inputs */
             --input-text: var(--color-text);   /* Text color inside inputs */
             
             /* Button variables */
             --button-primary-bg: var(--color-link);         /* Primary button background */
-            --button-primary-text: #000f9a;                 /* Primary button text (white for good contrast on blue) */
+            --button-primary-text: #000f9a;                 /* Primary button text */
             --button-primary-hover-bg: var(--color-link-active);
             --button-disabled-bg: #013d39;
             --button-disabled-text: #888888;
@@ -43,42 +43,63 @@
             --color-error-text-on-bg: #ffcdd2; /* For text on the --color-error-bg */
         }
 
+        label[for="chat-history-display"] {
+            padding-left: 10px; /* Indentation for "Conversation:" label, adjusted from 20px to match common padding */
+        }
+
+        html {
+            background-color: var(--color-background);
+        }
+
         body { 
             font-family: sans-serif; 
             line-height: 1.6; 
-            margin: 20px; 
+            margin: 0; 
             background-color: var(--color-background); 
             color: var(--color-text); 
+            background-image: url('/static/background.png'); 
+            background-size: cover;                       
+            background-repeat: no-repeat;                 
+            background-position: center center;           
+            background-attachment: fixed;                  
+            min-height: 100vh;                             
         }
         header, main { 
             max-width: 800px; 
             margin: 20px auto; 
-            padding: 2px; 
+            padding: 20px; /* MODIFIED: Increased from 2px for better internal spacing */
             background-color: var(--color-theme); 
             border-radius: 8px; 
-            box-shadow: 0 0 15px 0px rgba(100, 181, 246, 0.4); /* x-offset y-offset blur-radius spread-radius color */
+            /* MODIFIED: Changed to a more subtle, darker shadow for the main container */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
         }
+        /* Specific, smaller padding for the header */
+        header {
+            padding: 2px 20px; /* e.g., 5px top/bottom, 20px left/right */
+            /* Or just: padding: 5px; for 5px on all sides */
+        }
+
         h1 { 
             text-align: center; 
             color: #07f1ca; 
-            font-family: 'VT323', monospace; /* Retro pixel terminal font */
+            font-family: 'VT323', monospace; 
             text-shadow: 0 0 5px rgba(60, 0, 255, 0.448); 
-            font-size: 2.5rem; /* Pixel fonts often look better a bit larger */
-    
+            font-size: 2.5rem; 
         }
-        form div, details > div { 
+        /* Adjusted general div spacing within form to be more specific */
+        form > div:not(.form-row-columns):not(.input-actions), 
+        details { 
             margin-bottom: 15px; 
         }
         label { 
             display: block; 
             margin-bottom: 5px; 
             font-weight: bold; 
-            color: var(--color-link); /* Or var(--color-secondary-text) for less emphasis */
+            color: var(--color-link); 
         }
         
-        /* Updated Input Styling for Dark Mode */
         input[type="text"], textarea, select, input[type="number"] { 
-            width: calc(100% - 16px);
+            width: 100%; /* Changed from calc for simplicity within flex/grid items */
             padding: 8px; 
             box-sizing: border-box; 
             background-color: var(--input-bg); 
@@ -95,173 +116,102 @@
             -moz-appearance: none;
             appearance: none;
         }
-        input[type="range"] { 
-            padding: 0; 
-            vertical-align: middle; 
-        }
+        input[type="range"] { padding: 0; vertical-align: middle; }
         input[type="range"] + span { 
-            display: inline-block; 
-            min-width: 3em; 
-            text-align: right; 
-            vertical-align: middle; 
-            margin-left: 5px;
-            color: var(--color-secondary-text);
+            display: inline-block; min-width: 3em; text-align: right; 
+            vertical-align: middle; margin-left: 5px; color: var(--color-secondary-text);
         }
         details { 
-            margin-bottom: 15px; 
+            /* margin-bottom handled above */
             border: 1px solid var(--color-secondary); 
             border-radius: 4px; 
             padding: 10px; 
             background-color: var(--input-bg); 
         }
-        summary { 
-            font-weight: bold; 
-            cursor: pointer; 
-            color: var(--color-link); 
-        }
+        summary { font-weight: bold; cursor: pointer; color: var(--color-link); }
         details > div { 
-            margin-top: 10px; 
-            padding-top: 10px; 
-            border-top: 1px solid var(--color-secondary); 
+            margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--color-secondary); 
+            margin-bottom: 0; /* Content within details doesn't need extra bottom margin */
         }
         
         button { 
-            display: block; 
-            width: 100%; 
-            padding: 10px; 
-            background-color: var(--button-primary-bg); 
-            color: var(--button-primary-text); 
-            border: none; 
-            cursor: pointer; 
-            font-size: 1em; 
-            border-radius: 4px; 
-            transition: background-color 0.2s ease; 
-            margin-top: 10px; 
+            display: block; width: 100%; padding: 10px; background-color: var(--button-primary-bg); 
+            color: var(--button-primary-text); border: none; cursor: pointer; font-size: 1em; 
+            border-radius: 4px; transition: background-color 0.2s ease; margin-top: 10px; 
         }
-        button:hover:not(:disabled) { 
-            background-color: var(--button-primary-hover-bg); 
-        }
+        button:hover:not(:disabled) { background-color: var(--button-primary-hover-bg); }
         button:disabled { 
-            background-color: var(--button-disabled-bg); 
-            color: var(--button-disabled-text);
+            background-color: var(--button-disabled-bg); color: var(--button-disabled-text);
             cursor: not-allowed; 
         }
         audio { display: block; width: 100%; margin-top: 5px; }
-        footer { 
-            text-align: center; 
-            margin-top: -40px; 
-            font-size: 0.9em; 
-            color: var(--color-secondary-text); 
-        }
+        footer { text-align: center; margin-top: -40px; font-size: 0.9em; color: var(--color-secondary-text); }
         
         #chat-history-display { 
             height: 400px; 
-            border: 5x solid var(--color-secondary); 
-            padding: 10px; 
-            margin-bottom: 20px; 
-            overflow-y: auto; 
-            background-color: var(--color-background-alt); 
-            border-radius: 4px; 
-            box-shadow: 0 0 15px 0px rgba(100, 181, 246, 0.2); 
+            border: 1px solid var(--color-secondary); /* CORRECTED from 5x */
+            padding: 10px; margin-bottom: 20px; overflow-y: auto; 
+            background-color: var(--color-background-alt); border-radius: 4px; 
+            box-shadow: 0 0 15px 0px rgba(7, 241, 202, 0.25); /* Glow using --color-link (#07f1ca) with alpha */
         }
-        .chat-message { 
-            margin-bottom: 10px; 
-            padding: 8px 12px; 
-            border-radius: 6px; 
-            word-wrap: break-word; 
-        }
-        .user-message { 
-            background-color: var(--color-accent-bg); 
-            color: var(--color-user-message-text); 
-            text-align: right; 
-            margin-left: auto; 
-            max-width: 80%; 
-        }
-        .assistant-message { 
-            background-color: var(--color-bg-alt); 
-            color: var(--color-assistant-message-text); 
-            text-align: left; 
-            margin-right: auto; 
-            max-width: 80%; 
-        }
-        .chat-message strong { 
-            display: block; 
-            margin-bottom: 4px; 
-            color: var(--color-link); 
-            font-size: 0.9em;
-        }
+
+        /* --- Styles for Chat Avatars and Message Layout (from your provided code) --- */
+        .chat-message { display: flex; align-items: flex-start; margin-bottom: 15px; max-width: 85%; }
+        .chat-avatar { padding-right: 15px; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .message-content-wrapper { padding: 8px 12px; border-radius: 6px; word-wrap: break-word; flex-grow: 1; }
+        .assistant-message { margin-right: auto; }
+        .assistant-message .chat-avatar { margin-right: 10px; }
+        .assistant-message .message-content-wrapper { background-color: var(--color-bg-alt); color: var(--color-assistant-message-text); text-align: left; }
+        .user-message { margin-left: auto; flex-direction: row-reverse; }
+        .user-message .chat-avatar { margin-left: 10px; }
+        .user-message .message-content-wrapper { background-color: var(--color-accent-bg); color: var(--color-user-message-text); text-align: left; }
+        .user-message, .assistant-message { background-color: transparent !important; color: inherit !important; }
+        /* Original chat message styles (some might be overridden or complemented by the new ones) */
+        /* .chat-message { ... } */ 
+        /* .user-message { ... } */
+        /* .assistant-message { ... } */
+        .chat-message strong { display: block; margin-bottom: 4px; color: var(--color-link); font-size: 0.9em; }
         .streaming-llm-content { white-space: pre-wrap; }
+        /* --- END Styles for Chat Avatars --- */
         
-        .input-actions { 
-            display: flex; 
-            gap: 10px; 
-            align-items: flex-start; 
-            margin-bottom: 15px;
-        }
-        .input-actions textarea { 
-            flex-grow: 1; 
-            margin: 0; 
-        }
+        .input-actions { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 15px; }
+        .input-actions textarea { flex-grow: 1; margin: 0; }
         .input-actions button#record-button { 
-            width: auto; 
-            flex-shrink: 0; 
-            padding: 8px 12px; 
-            margin-top: 0; 
-            font-size: 1.2em;
-            background-color: var(--input-bg); 
-            color: var(--color-link);   
-            border: 1px solid var(--input-border);
+            width: auto; flex-shrink: 0; padding: 8px 12px; margin-top: 0; font-size: 1.2em;
+            background-color: var(--input-bg); color: var(--color-link); border: 1px solid var(--input-border);
         }
-        .input-actions button#record-button:hover:not(:disabled) {
-            background-color: var(--color-theme); 
-            border-color: var(--color-link);
-        }
-        #record-button.recording { 
-            background-color: var(--color-error); 
-            color: #ffffff; 
-            border-color: var(--color-error);
-        }
+        .input-actions button#record-button:hover:not(:disabled) { background-color: var(--color-theme); border-color: var(--color-link); }
+        #record-button.recording { background-color: var(--color-error); color: #ffffff; border-color: var(--color-error); }
         #record-status { 
-            font-style: italic; 
-            margin-left: 5px; 
-            color: var(--color-secondary-text); 
-            display: inline-block; 
-            min-width: 100px; 
-            line-height: 38px; 
+            font-style: italic; margin-left: 5px; color: var(--color-secondary-text); 
+            display: inline-block; min-width: 100px; line-height: 38px; 
         }
-        input[type="number"]#llm_max_tokens_input { 
-            width: 100px; 
-        }
+        input[type="number"]#llm_max_tokens_input { width: 100px; }
 
-        /* --- NEW Styles for two-column form row --- */
-        .form-row-columns {
-            display: flex;
-            gap: 20px; /* Adjust the space between the two columns */
-            margin-bottom: 15px; /* Maintain bottom margin for the row itself */
-        }
+        .form-row-columns { display: flex; gap: 20px; margin-bottom: 15px; }
+        .form-row-columns > div { flex: 1; margin-bottom: 0; }
+        .form-row-columns select { width: 100%; }
 
-        .form-row-columns > div {
-            flex: 1; /* Each child div (column) will take up equal space */
-            margin-bottom: 0; /* Remove individual bottom margin from columns as the row has it */
+        /* --- ADDED: Styles for #app-form to match details/chat-history look --- */
+        #app-form {
+            background-color: var(--input-bg);         /* Matches background of <details> */
+            border: 1px solid var(--color-secondary);    /* "Thin line" border, matches <details> */
+            border-radius: 8px;                          /* Rounded corners, consistent with main/header */
+            padding: 25px;                               /* Generous padding for form elements */
+            margin-top: 20px;                            /* Space above the form section */
+            margin-bottom: 20px;                         /* Space below the form section */
+            box-shadow: 0 0 15px 0px rgba(7, 241, 202, 0.25); /* Glow using --color-link (#07f1ca) with alpha */
         }
-
-        .form-row-columns select {
-            width: 100%; /* Make selects take full width of their column */
-             /* The calc(100% - 16px) is overridden for these specific selects */
-        }
-        /* --- END NEW Styles for two-column form row --- */
+        /* --- END ADDED --- */
 
     </style>
 </head>
 <body>
-    <header><h1>Story craft with Orpheus-TTS</h1></header>
-    <main>
-        <label for="chat-history-display"> Conversation:</label>
-        <div id="chat-history-display">
-        </div>
+    <header><h1>Story crafting with Orpheus-TTS</h1></header>
+    <main> <label for="chat-history-display"> Conversation:</label>
+        <div id="chat-history-display"> </div>
 
-        <form id="app-form">
-            <div class="form-row-columns">
+        <form id="app-form"> <div class="form-row-columns">
                 <div> <label for="mode_select">Mode:</label>
                     <select id="mode_select">
                         <option value="llm_tts" selected>LLM + TTS</option>
@@ -269,10 +219,8 @@
                         <option value="tts_only">TTS Only</option>
                     </select>
                 </div>
-                
                 <div> <label for="tts_voice_dd">TTS Voice:</label>
-                    <select id="tts_voice_dd">
-                        </select>
+                    <select id="tts_voice_dd"></select>
                 </div>
             </div>
             
@@ -283,9 +231,7 @@
                 <span id="record-status"></span>
             </div>
 
-            <button type="submit" id="generate-button">Generate</button>
-
-            <details>
+            <button type="submit" id="generate-button">Generate</button> <details>
                 <summary>LLM Parameters</summary>
                 <div>
                     <div><label for="llm_temp_slider">LLM Temperature:</label><input type="range" id="llm_temp_slider" min="0.0" max="2.0" step="0.01" value="0.7"><span id="llm_temp_value">0.70</span></div>
@@ -309,7 +255,7 @@
                 </div>
             </details>
             
-            </form>
+        </form>
         <audio controls id="audio-player" style="display: none;"></audio> 
     </main>
     <footer><p>Powered by FastAPI, SNAC, Whisper, Orpheus, and LM Studio</p></footer>
