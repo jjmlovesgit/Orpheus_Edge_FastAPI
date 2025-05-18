@@ -390,7 +390,7 @@ def generate_speech_stream_bytes(
                                         snac_decode_end_time = time.time()
                                         if audio_chunk is not None and audio_chunk.size > 0:
                                             logger.debug(f"--- SNAC: Decoded initial buffer ({len(codes_to_decode_initial)} codes -> {audio_chunk.size} samples) in {snac_decode_end_time - snac_decode_start_time:.3f}s.")
-                                            faded_chunk = apply_fade(audio_chunk, TARGET_SAMPLE_RATE, fade_ms=3)
+                                            faded_chunk = apply_fade(audio_chunk, TARGET_SAMPLE_RATE, fade_ms=0)
                                             audio_bytes_to_yield = faded_chunk.astype(np.float32).tobytes()
                                             if silence_bytes: yield silence_bytes 
                                             yield audio_bytes_to_yield
