@@ -16,7 +16,7 @@ import shutil # STT: Added for file operations
 import tempfile # STT: Added for temporary file management
 
 # --- SETUP LOGGING ---
-logging.basicConfig(level=logging.DEBUG, stream=sys.stderr, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+logging.basicConfig(level=logging.INFO, stream=sys.stderr, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 logger = logging.getLogger(__name__)
 # --- END LOGGING SETUP ---
 
@@ -60,7 +60,7 @@ TTS_API_ENDPOINT = f"{SERVER_BASE_URL}/v1/completions"
 TTS_MODEL = os.getenv("TTS_MODEL", "orpheus-3b-0.1")
 TTS_PROMPT_FORMAT = "<|audio|>{voice}: {text}<|eot_id|>"
 TTS_PROMPT_STOP_TOKENS = ["<|eot_id|>", "<|audio|>"]
-DEFAULT_TTS_TEMP = 2.0
+DEFAULT_TTS_TEMP = .9
 DEFAULT_TTS_TOP_P = 0.9
 DEFAULT_TTS_REP_PENALTY = 1.1 # fixed value
 ORPHEUS_MIN_ID = 10

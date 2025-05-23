@@ -19,8 +19,9 @@ LMSTUDIO_API_ENDPOINT = f"{SERVER_BASE_URL}/v1/chat/completions"
 LMSTUDIO_MODEL = os.getenv("LMSTUDIO_MODEL", "dolphin3.0-llama3.1-8b-abliterated") # Default from user's Gradio script
 LMSTUDIO_SYSTEM_PROMPT = os.getenv(
     "LMSTUDIO_SYSTEM_PROMPT",
-    "You are engaged in a consensual adult chat with you ships log.  *** Important *** Strictly limit your responses to 120 or fewer words of two or three sentences. You are Captain Ersa Minor an the Captain of an interstellar start ship.  Your goal is to tranpost a group of 28 human survivors from earth to K2-18b an exoplanet 27 light years from earth.  You are crerating a story.  All topics are in scope and you remain in Charactor while playing off the chat responses from the ships AI to weave stories together."
+    "You are engaged in a consensual adult chat.  *** Important *** Strictly limit your responses to 120 or fewer words of two or three sentences. You are Captain Ersa Minor an the Captain of an interstellar star ship Galactic Hope.  Your goal is to tranpost a group of 28 human survivors from earth to K2-18b an exoplanet 17 light years from earth.  You are crerating a story.  All topics are in scope and you remain in Charactor while playing off the chat responses from the ships AI to weave stories together."
 )
+
 DEFAULT_LMSTUDIO_MAX_TOKENS = -1
 DEFAULT_LMSTUDIO_TEMP = 0.7
 DEFAULT_LMSTUDIO_TOP_P = 0.9
@@ -116,7 +117,7 @@ def generate_llm_text_stream(
                     if "choices" in data and data["choices"]:
                         choice = data["choices"][0]
                         if "delta" in choice and choice["delta"] is not None:
-                             delta_content = choice["delta"].get("content")
+                            delta_content = choice["delta"].get("content")
                         finish_reason = choice.get("finish_reason")
                     
                     if delta_content is not None:
@@ -133,8 +134,8 @@ def generate_llm_text_stream(
                         # Some models might send finish_reason and then SSE_DONE.
                         # If finish_reason indicates an error or abnormal stop, might need specific handling.
                         if finish_reason not in ["stop", "length", None]: # "length" is a common valid reason
-                             logger.warning(f"[{request_id}] LLM Router: Stream finished with non-standard reason: {finish_reason}")
-                             # Depending on API, may want to break here or yield an indicator.
+                            logger.warning(f"[{request_id}] LLM Router: Stream finished with non-standard reason: {finish_reason}")
+                            # Depending on API, may want to break here or yield an indicator.
 
                 except json.JSONDecodeError:
                     logger.warning(f"[{request_id}] LLM Router: Skipping invalid JSON in LLM stream: {json_str[:100]}..."); continue

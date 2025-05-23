@@ -1,7 +1,3 @@
-Youtube demo:  https://youtu.be/47YhYkwGd60
-
-![image](https://github.com/user-attachments/assets/eef7e1e2-aadd-46c5-a973-466fe1fbd31a)
-
 # Orpheus-Edge: Voice & Text AI Application
 
 A FastAPI-based web application that provides a user interface for interacting with a Large Language Model (LLM), generating speech from text (TTS) using an Orpheus-compatible model and SNAC vocoder, and transcribing speech to text (STT) using Whisper.
@@ -14,9 +10,6 @@ A FastAPI-based web application that provides a user interface for interacting w
 * Configurable parameters for LLM and TTS via the UI.
 * Push-to-talk functionality using the space bar.
 * Dark mode interface.
-
-* ![image](https://github.com/user-attachments/assets/6b3cb773-6552-42d1-ac57-a410b40095bc)
-
 
 ## Prerequisites
 
@@ -34,8 +27,8 @@ A FastAPI-based web application that provides a user interface for interacting w
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/jjmlovesgit/Orpheus_Edge_FastAPI
-    cd Orpheus_Edge_FastAPI
+    git clone <your-github-repository-url>
+    cd <repository-name>
     ```
 
 2.  **Create and Activate a Python Virtual Environment (Recommended):**
@@ -117,19 +110,4 @@ If you want to make the server accessible from other devices on your network or 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
-```
-
 Using --host 0.0.0.0 will make the server listen on all available network interfaces. You would then access it via your machine's IP address (e.g., http://<your-local-ip-address>:8000).
-
-# Model Reference -- Important for stability and performance:
-
-## Orpheus TTS Settings Reference screen shots (See right side of screens)
-![image](https://github.com/user-attachments/assets/c0c54e7e-9b01-464b-9751-b5add023eb5f)
-![image](https://github.com/user-attachments/assets/aa1fc9e7-2a39-4840-b90e-32b783882743)
-
-## LLM Settings Reference screen shots (See right side of screens)
-![image](https://github.com/user-attachments/assets/a4847185-6280-42a2-adec-25b070f4ccc7)
-![image](https://github.com/user-attachments/assets/658cfbcb-ee42-4519-b391-a737bed48f23)
-
-
-
