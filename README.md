@@ -1,6 +1,6 @@
 # Orpheus-Edge: Voice & Text AI Application
-
-Brief Demo:  https://youtu.be/hpcFw_Tdn_Q
+Demo #1:  https://youtu.be/47YhYkwGd60
+Demo #2:   https://youtu.be/hpcFw_Tdn_Q
 
 A FastAPI-based web application that provides a user interface for interacting with a Large Language Model (LLM), generating speech from text (TTS) using an Orpheus-compatible model and SNAC vocoder, and transcribing speech to text (STT) using Whisper.
 
