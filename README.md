@@ -1,4 +1,7 @@
 # Orpheus-Edge: Voice & Text AI Application
+
+![image](https://github.com/user-attachments/assets/8fe9e662-e7d8-49d5-8457-de55f9e202b7)
+
 Demo #1:  https://youtu.be/47YhYkwGd60
 Demo #2:   https://youtu.be/hpcFw_Tdn_Q
 
