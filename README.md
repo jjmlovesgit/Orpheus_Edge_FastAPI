@@ -4,7 +4,7 @@
 
 Demo #1:  https://youtu.be/47YhYkwGd60
 Demo #2:  https://youtu.be/jcUD9Gmh5t8
-Demo #3:   https://youtu.be/hpcFw_Tdn_Q
+Demo #3:  https://youtu.be/rbingKlW4SM
 
 A FastAPI-based web application that provides a user interface for interacting with a Large Language Model (LLM), generating speech from text (TTS) using an Orpheus-compatible model and SNAC vocoder, and transcribing speech to text (STT) using Whisper.
 
